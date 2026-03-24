@@ -28,27 +28,5 @@ Run:
 - Lombok
 - H2 / MySQL / PostgreSQL (configurable)
 
-## Project Structure
-
-com.insurance.claimsystem
-│
-├── controller
-│   └── ViewController.java
-│
-├── service
-│   └── ClaimService.java
-│
-├── repository
-│   ├── ClaimRepository.java (JPA)
-│   └── ClaimJdbcRepository.java (JDBC)
-│
-├── model
-│   └── Claim.java
-│
-└── resources
-    ├── application.properties
-    └── templates/
-        └── claim-form.html
-
 ## Run Application
 ./gradlew bootRun

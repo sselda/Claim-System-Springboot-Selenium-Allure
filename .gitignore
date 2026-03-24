@@ -1,0 +1,62 @@
+# ========================
+# Build & Gradle
+# ========================
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# ========================
+# Allure Reports
+# ========================
+allure-results/
+allure-report/
+
+# ========================
+# Screenshots
+# ========================
+*.png
+*.jpg
+
+# ========================
+# Logs
+# ========================
+*.log
+
+# ========================
+# OS Files
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# IntelliJ
+# ========================
+.idea/
+*.iml
+out/
+
+# ========================
+# Eclipse / STS
+# ========================
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+
+# ========================
+# VS Code
+# ========================
+.vscode/
+
+# ========================
+# NetBeans
+# ========================
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/

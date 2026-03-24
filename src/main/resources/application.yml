@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/insurance_db
+    username: seldabozkurt
+    password: password
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true

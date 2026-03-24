@@ -1,0 +1,1 @@
+POST http://localhost:8080/claims?description=test&amount=500&fraudFlag=false

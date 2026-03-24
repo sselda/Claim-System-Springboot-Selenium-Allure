@@ -1,4 +1,4 @@
-package com.insurance.claimsystem.tests;
+package com.insurance.claimsystem.tests.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

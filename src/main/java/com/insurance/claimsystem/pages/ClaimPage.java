@@ -32,4 +32,6 @@ public class ClaimPage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("body"))).getText();
     }
 
+
+
 }

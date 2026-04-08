@@ -13,6 +13,6 @@ public class ClaimJdbcRepository {
     }
 
     public void processClaim(Long claimId) {
-        jdbcTemplate.update("CALL process_claim(?)", claimId);
+        jdbcTemplate.update("CALL processclaim(?)", claimId);
     }
 }

@@ -3,6 +3,7 @@ package com.insurance.claimsystem.tests.ui;
 import com.insurance.claimsystem.base.BaseTest;
 import com.insurance.claimsystem.pages.ClaimPage;
 import io.qameta.allure.*;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;

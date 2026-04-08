@@ -1,14 +1,13 @@
 package com.insurance.claimsystem.controller;
 
+import com.insurance.claimsystem.dto.ClaimRequestDTO;
+import com.insurance.claimsystem.dto.ClaimResponseDTO;
 import com.insurance.claimsystem.entity.Claim;
 import com.insurance.claimsystem.service.ClaimService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/claims")
+@RequestMapping("claims")
 public class ClaimController {
 
     private final ClaimService claimService;
@@ -18,10 +17,12 @@ public class ClaimController {
     }
 
     @PostMapping
-    public Claim createClaim(@RequestParam String description,
-                             @RequestParam Double amount,
-                             @RequestParam(required = false, defaultValue = "false") Boolean fraudFlag) {
+    public ClaimResponseDTO create(@RequestBody ClaimRequestDTO request) {
+        return claimService.createClaim(request);
+    }
 
-        return claimService.createClaim(description,amount,fraudFlag);
+    @PutMapping("{id}/approve")
+    public ClaimResponseDTO approve(@PathVariable Long id) {
+        return claimService.approveClaim(id);
     }
 }

@@ -1,40 +1,56 @@
 package com.insurance.claimsystem.service;
 
+import com.insurance.claimsystem.dto.ClaimRequestDTO;
+import com.insurance.claimsystem.dto.ClaimResponseDTO;
 import com.insurance.claimsystem.entity.Claim;
 import com.insurance.claimsystem.entity.ClaimStatus;
 import com.insurance.claimsystem.jdbc.ClaimJdbcRepository;
+import com.insurance.claimsystem.mapper.ClaimMapper;
 import com.insurance.claimsystem.repository.ClaimRepository;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Service
 public class ClaimService {
 
     private final ClaimRepository claimRepository;
     private final ClaimJdbcRepository claimJdbcRepository;
+    private final ClaimMapper claimMapper;
 
     public ClaimService(ClaimRepository claimRepository,
-                        ClaimJdbcRepository claimJdbcRepository) {
+                        ClaimJdbcRepository claimJdbcRepository,
+                        ClaimMapper claimMapper) {
         this.claimRepository = claimRepository;
         this.claimJdbcRepository = claimJdbcRepository;
+        this.claimMapper = claimMapper;
+
     }
 
-    public Claim createClaim(String description, Double amount, Boolean fraudFlag) {
+    public ClaimResponseDTO createClaim(ClaimRequestDTO request) {
 
-        Claim claim = Claim.builder()
-                .description(description)
-                .amount(amount)
-                .fraudFlag(fraudFlag)
-                .status(ClaimStatus.APPROVED)
-                .createdAt(LocalDateTime.now())
-                .build();
+        Claim claim = claimMapper.toEntity(request);
 
+        //Standart CRUD(save, find)
         Claim savedClaim = claimRepository.save(claim);
 
+        //Store Procedure
     claimJdbcRepository.processClaim(savedClaim.getId());
 
-    return claimRepository.findById(savedClaim.getId()).orElseThrow();
+    Claim updated = claimRepository.findById(savedClaim.getId()).orElseThrow();
 
+    return claimMapper.toResponse(updated);
+    }
+
+    public ClaimResponseDTO approveClaim(Long id) {
+        Claim claim = claimRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Claim not found"));
+
+        //Business Rule
+        if(claim.getStatus() != ClaimStatus.NEW) {
+            throw new IllegalStateException("Only NEW claims can be approved");
+        }
+
+        claim.setStatus(ClaimStatus.APPROVED);
+        Claim saved = claimRepository.save(claim);
+        return claimMapper.toResponse(saved);
     }
 }

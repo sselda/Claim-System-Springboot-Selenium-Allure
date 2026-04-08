@@ -1,6 +1,6 @@
 package com.insurance.claimsystem.controller;
 
-import com.insurance.claimsystem.entity.Claim;
+import com.insurance.claimsystem.dto.ClaimRequestDTO;
 import com.insurance.claimsystem.service.ClaimService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +28,11 @@ public class ViewController {
             @RequestParam String description,
             @RequestParam Double amount,
             @RequestParam(required = false) Boolean fraudFlag) {
-                claimService.createClaim(description, amount, fraudFlag !=null);
-                return "Claim created!";
+        ClaimRequestDTO request = new ClaimRequestDTO();
+        request.setDescription(description);
+        request.setAmount(amount);
+        claimService.createClaim(request);
+        return "redirect:/claims";
     }
 
 }

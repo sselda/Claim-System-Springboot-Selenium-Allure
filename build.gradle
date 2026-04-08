@@ -53,3 +53,7 @@ allure {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+configurations.all {
+	exclude group: 'org.aspectj', module: 'aspectjweaver'
+}

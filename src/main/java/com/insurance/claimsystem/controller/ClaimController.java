@@ -16,13 +16,23 @@ public class ClaimController {
         this.claimService = claimService;
     }
 
+    @GetMapping("/")
+    public String showForm(){
+        return "claim-form";
+    }
+
     @PostMapping
-    public ClaimResponseDTO create(@RequestBody ClaimRequestDTO request) {
+    public ClaimResponseDTO create(ClaimRequestDTO request) {
         return claimService.createClaim(request);
     }
 
-    @PutMapping("{id}/approve")
+    @PutMapping("/{id}/approve")
     public ClaimResponseDTO approve(@PathVariable Long id) {
         return claimService.approveClaim(id);
+    }
+
+    @PutMapping("/{id}/reject")
+    public ClaimResponseDTO reject(@PathVariable Long id) {
+        return claimService.rejectedClaim(id);
     }
 }

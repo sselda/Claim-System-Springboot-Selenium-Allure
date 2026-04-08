@@ -21,6 +21,7 @@ allure-report/
 # Logs
 # ========================
 *.log
+ajcore*.txt
 
 # ========================
 # OS Files

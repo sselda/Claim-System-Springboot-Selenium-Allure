@@ -53,4 +53,21 @@ public class ClaimService {
         Claim saved = claimRepository.save(claim);
         return claimMapper.toResponse(saved);
     }
+
+    public ClaimResponseDTO rejectedClaim(Long id) {
+        Claim claim = claimRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Claim is rejected"));
+
+        if(claim.getStatus() != ClaimStatus.REVIEW) {
+            throw new IllegalStateException("Only REVIEW can be rejected");
+        }
+
+        claim.setStatus(ClaimStatus.REJECTED);
+        Claim saved = claimRepository.save(claim);
+        return claimMapper.toResponse(saved);
+
+    }
+
+
+
 }

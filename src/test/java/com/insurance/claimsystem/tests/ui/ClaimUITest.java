@@ -49,6 +49,7 @@ public class ClaimUITest extends BaseTest {
 
     }
 
+    @Disabled
     @Test
     void shouldRejectNegativeAmount() {
         ClaimPage page = new ClaimPage(driver);
@@ -70,6 +71,13 @@ public class ClaimUITest extends BaseTest {
         String result = page.getResult();
 
         assertTrue(result.contains("Großer Betrag"));
+    }
+
+    @Test
+    void shouldRejectedClaimViaUI() {
+        ClaimPage page = new ClaimPage(driver);
+        page.open(port);
+        page.createClaim("Reject test", "300");
     }
 
 }

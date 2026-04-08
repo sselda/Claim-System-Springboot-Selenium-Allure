@@ -1,18 +1,117 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create Claim</title>
+    <title>Claim Submission</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            width: 400px;
+            padding: 30px;
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: #ffffff;
+            color: #333;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #eaeaea;
+        }
+
+        .alert {
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .error {
+            background: rgba(255, 0, 0, 0.2);
+        }
+
+        .success {
+            background: rgba(0, 255, 0, 0.2);
+        }
+    </style>
 </head>
+
 <body>
 
-<h2>Create Claim</h2>
+<div class="card">
+    <h2>Submit Claim</h2>
 
-<form action="/claims" method="post">
-    Description: <input type="text" name="description"/><br/>
-    Amount: <input type="text" name="amount"/><br/>
-    Fraud: <input type="checkbox" name="fraudFlag"/><br/>
-    <button type="submit">Submit</button>
-</form>
+    <!-- ERROR -->
+    <div th:if="${error}" class="alert error">
+        <span th:text="${error}"></span>
+    </div>
+
+    <!-- SUCCESS -->
+    <div th:if="${success}" class="alert success">
+        <span th:text="${success}"></span>
+    </div>
+
+    <form th:action="@{/claims}" method="post">
+
+        <div class="input-group">
+            <input type="text" name="customerName" placeholder="Customer Name" required>
+        </div>
+
+        <div class="input-group">
+            <input type="number" name="amount" placeholder="Claim Amount" required>
+        </div>
+
+        <div class="input-group">
+            <textarea name="description" placeholder="Description"></textarea>
+        </div>
+
+        <button type="submit">Submit Claim</button>
+    </form>
+</div>
 
 </body>
 </html>
